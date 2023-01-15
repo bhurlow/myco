@@ -26,8 +26,10 @@ app.get("/", async (req, res) => {
 
     console.log(res.rows);
 
-    res.send(JSON.stringify(res.rows));
+    res.json(res.rows);
+
   } catch (e) {
+    console.log(e)
     res.send("error");
   }
 });
