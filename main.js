@@ -24,13 +24,11 @@ app.get("/data", async (req, res) => {
   try {
     console.log("got request");
 
-    const res = await client.query("SELECT * from stats LIMIT 5;");
+    const result = await client.query("SELECT * from stats LIMIT 5;");
 
-    console.log("rows", res.rows);
+    console.log("rows", result.rows);
 
-    //
-    //res.json({ foo: 22 });
-    res.send(JSON.stringify({ foo: 88 }));
+    res.json(result.rows);
   } catch (e) {
     console.log(e);
     res.send("error");
