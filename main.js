@@ -20,16 +20,17 @@ client.connect((e) => {
 
 app.get("/", async (req, res) => {
   try {
-    console.log("got req");
+    console.log("got request");
 
-    const res = await client.query("SELECT * from stats LIMIT 5;");
+    //const res = await client.query("SELECT * from stats LIMIT 5;");
 
-    console.log(res.rows);
+    console.log('rows', res.rows);
 
-    res.json(res.rows);
-
+    //
+    //res.json({ foo: 22 });
+    res.send("done");
   } catch (e) {
-    console.log(e)
+    console.log(e);
     res.send("error");
   }
 });
