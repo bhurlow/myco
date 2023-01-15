@@ -1,9 +1,0 @@
-spec:
-  name: myco
-  services:
-  - environment_slug: node-js
-    git:
-      branch: main
-      repo_clone_url: https://github.com/bhurlow/myco
-      deploy_on_push: true
-    name: myco
