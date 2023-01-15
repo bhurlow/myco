@@ -3,21 +3,32 @@ const app = express();
 const port = process.env.PORT || 3000;
 
 const { Client } = require("pg");
-const client = new Client();
 
-client.connect(process.env.PG_URL);
+const config = {
+  connectionString: process.env.PG_URL,
+  ssl: {
+    rejectUnauthorized: false,
+    cert: process.env.PG_CERT,
+  },
+};
+
+const client = new Client(config);
+
+client.connect((e) => {
+  console.log("connection callback");
+});
 
 app.get("/", async (req, res) => {
   try {
-    console.log("ENV", process.env);
+    console.log("got req");
 
-    const res = await client.query("SELECT $1::text as message", [
-      "Hello world!",
-    ]);
+    const res = await client.query("SELECT * from stats LIMIT 5;");
 
-    res.end(JSON.stringify(res.rows));
+    console.log(res.rows);
+
+    res.send(JSON.stringify(res.rows));
   } catch (e) {
-    res.send(e.toString());
+    res.send("error");
   }
 });
 
