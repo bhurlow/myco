@@ -18,7 +18,9 @@ client.connect((e) => {
   console.log("connection callback");
 });
 
-app.get("/", async (req, res) => {
+app.use(express.static('public'))
+
+app.get("/data", async (req, res) => {
   try {
     console.log("got request");
 
